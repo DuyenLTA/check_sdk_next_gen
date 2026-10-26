@@ -48,6 +48,8 @@ Tag: `FOR_TESTER_CONFIG`, `FOR_TESTER_LOAD_AD`, `FOR_TESTER_SHOW_AD`, `FOR_TESTE
    `python3 -I $SK/scripts/parse_fa_events.py log.txt ev.json && python3 -I $SK/scripts/summarize_ad_events.py ev.json [--skip HH:MM:SS HH:MM:SS]`
 3. Đọc: thiếu param, matched/load, show↔paid cùng unit, value = valuemicros/1e6, won vs ad_source, click.
 
+Luật **show = paid** (bỏ qua `ad_impression`): `summarize_ad_events.py` in `show_success / paid / paid_value`, dòng `MISMATCH show/paid` khi lệch, và `show without paid same unit` / `paid without show same unit` cho từng lượt. EV-11 (`ad_impression`) không chấm — Homova 1.8.0 (26/10) ra 0 ad_impression / 80 ad_show ở luồng RC đã fetch, chỉ ghi quan sát.
+
 Bẫy: **logcat có thể làm rơi dòng `FA-SVC Logging event`** (chatty) → parse thấy "thiếu paid" nhưng event vẫn lên server. Trước khi chấm thiếu event, tìm `name: <event>` trong gói upload `FA-SVC` (khối `param { name: … }` vài trăm ms sau) — Fravix 15/10: inter paid tưởng mất, thực ra có trong upload. `Param value can't be null: ad_source_unit_id` chỉ làm rơi param đó, không rơi event. `ad_show` banner có thể ghi **sai ad unit** so với ad_load/paid (EV-05) và bắn `ad_show failed ERROR_VIEW` trước khi banner load (EV-06) — so từng unit, đừng chỉ đếm. App open resume phải đủ `track_ad_request → matched → ad_load → ad_show → paid` + `event_user_click_ads` khi bấm (EV-25; bản 12/10 thiếu, bản 13/10 đủ). Offline: app chặn request ("no internet, failing ad request fast") nên **không có ad_load failed** — không phải bug nếu checklist ghi vậy (EV-21/24).
 
 ## Mục 4 · Next-Gen KT / MED / CMP / EV-30..32 / HV / RG

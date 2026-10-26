@@ -32,6 +32,7 @@ Cách đo từng case + bẫy đã gặp: **đọc `references/how-to-measure-ea
 5. Case cần điều kiện không tạo được trên máy (RC phải đổi mà app không debuggable, không có máy Android 7…) → tìm đường khác trước (đọc manifest, đọc RC qua REST, bản cũ để so); hết cách thật thì đưa vào mục riêng không tính và nói rõ cần gì.
 6. Sai phải lặp ≥2 lần cùng điều kiện, và với case "so bản cũ" phải đo bản cũ cùng điều kiện, trước khi báo.
 7. **Không git add / commit / push.**
+8. **show = paid** (user chốt 26/10/2026): mỗi lượt `ad_show` (show_status success) phải có đúng 1 `paid_ad_impression` cùng unit; hai số phải bằng nhau trên cả lượt chạy, lệch là **Sai** (EV-05/EV-10). **Bỏ qua `ad_impression`** (Firebase tự bắn) — không đếm, không chấm (EV-11 không tính, chỉ ghi quan sát). Trước khi chấm thiếu paid, đếm `name: paid_ad_impression` trong gói upload `FA-SVC` (logcat có thể rơi dòng).
 
 ## Quy trình
 

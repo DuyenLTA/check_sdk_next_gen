@@ -61,6 +61,10 @@ ss = [e for e in on if e['name'] == 'ad_show' and e['p'].get('show_status') == '
 pi = [e for e in on if e['name'] == 'paid_ad_impression']
 pv = [e for e in on if e['name'] == 'paid_ad_impression_value']
 print('  show_success', len(ss), 'paid', len(pi), 'paid_value', len(pv))
+# rule: ad_show(success) = paid_ad_impression; a gap is a lost revenue event (confirm in FA upload first).
+# Firebase's automatic ad_impression is deliberately not counted.
+if len(ss) != len(pi):
+    print('  MISMATCH show/paid:', len(ss), len(pi))
 for s in ss:
     if not any(p['u'] == s['u'] and abs(p['ts'] - s['ts']) < 3 for p in pi):
         print('  show without paid same unit:', s['t'], s['u'], s['f'], '| paid near:', [p['u'] for p in pi if abs(p['ts'] - s['ts']) < 3])
