@@ -46,6 +46,7 @@ Cách đo từng case + bẫy đã gặp: **đọc `references/how-to-measure-ea
    - `continue-fo-from-current-screen.sh <marks> [stop-regex]` — đi tiếp FO từ màn đang mở (sau khi bật lại mạng…)
    - `splash-inter-display-cases.sh <pkg> <out>` — HT-03/HV-01/HV-02/HT-05/HT-04 trên inter splash (user cũ)
    - `hunt-fullscreen-native-onboarding.sh <pkg> <out> [n]` — chạy user mới tới khi OB toàn màn có fill (HT-09)
+   - `[PRE=fetch] capture-ob3-fullscreen-native-frames.sh <pkg> <out> <tag> [back-giây|none] [số khung]` + `ob3_frames_montage.py <out> <tag>` — quay OB3 toàn màn từng khung theo giờ máy từ mốc `ob3_view`, ghép ảnh `+x s`, in thời gian OB3 đứng / lúc bấm Back (HT-09, HT-07, HV-06)
    - `slow_ads_proxy.py PORT DELAY KBPS [HOST_REGEX]` — mạng chậm (docstring có lệnh nối/gỡ proxy)
 5. **Phân tích**: `parse_fa_events.py` + `summarize_ad_events.py` (EV), `compare_ad_requests.py old new` (CMP-01/02), `launch_stage_timing.py logs…` (CMP-03, KT-02), `fetch_remote_config.py <apk> out.json` (đọc RC thật của bản release: timeout, key bật/tắt unit, `_o_`/`_n_` id).
 6. Mỗi vòng nói 1 dòng đang ở case nào / màn nào.

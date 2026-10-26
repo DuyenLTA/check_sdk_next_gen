@@ -39,6 +39,9 @@ Tag: `FOR_TESTER_CONFIG`, `FOR_TESTER_LOAD_AD`, `FOR_TESTER_SHOW_AD`, `FOR_TESTE
 - HT-07 native video: cần creative video (MediaView có TextureView/SurfaceView). Test ad thường là ảnh tĩnh; **quảng cáo thật có thể ra video** (13/10 onboarding ra native video Loora).
 - HT-08/HT-10: native trong danh sách / vào-ra 20 lần + PSS (`dumpsys meminfo`) — chỉ có trong app → ngoài phạm vi tutorial.
 - HT-09 native toàn màn (OB): `btnTimeoutSkip`/`btnSkip`. Hay no-fill → chạy nhiều lượt user mới.
+  - OB3 chỉ đứng ~5 s rồi tự sang OB4; `uiautomator` (2–3 s/lần) nhìn trễ → dùng `capture-ob3-fullscreen-native-frames.sh`: chụp từ lúc log có `ob3_view`, mỗi khung ~0,4–0,5 s, gắn giờ máy; `ob3_frames_montage.py` ghép ảnh `+x s` và in `complete_ob3`/`ob4_view`/`back_sent`.
+  - Mặc định mở **offline** rồi bật mạng ở Language → app chạy RC mặc định — đến 26/10 đây là trạng thái duy nhất native OB3 có fill (Homova, AI Photo); `PRE=fetch` để chạy với RC thật (OB3 no-fill → shimmer ~2 s rồi trang OB3 thường).
+  - Đã đo: OB3 tự chuyển sau 5,0–5,3 s, không thấy nút X (AI Photo có `ob3_show_button_skip=false`); OB3 có thể ra native video (HT-07). HV-06: Back lúc OB3 → ra launcher, giống Back ở trang OB thường. `input keyevent` mất ~0,6 s → đọc `back_sent`, không phải `back_done`.
 - HT-11 user đã mua: mua sub test (xem memory mua sub), mở lạnh, đếm `track_ad_request`. Log billing tag `PurchaseEG` (`verifyPurchased SUBS code:-1` = mất kết nối billing).
 
 ## Mục 3 · Event EV-01 → EV-27 (chấm bằng log FA, không cần DebugView)
